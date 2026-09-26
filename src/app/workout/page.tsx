@@ -1,6 +1,6 @@
 import { IWorkout } from "@/type/workout.type";
-import WorkOutCart from "../shared/WorkOutCart";
-
+import WorkOutCart from "@/components/shared/WorkOutCart";
+import React from "react";
 
 const getWorkOut = async (): Promise<IWorkout[]> => {
     const res = await fetch("https://api.abcz.workers.dev/api/fitlog");
@@ -8,11 +8,11 @@ const getWorkOut = async (): Promise<IWorkout[]> => {
     return data;
 };
 
-const Workouts = async () => {
+const WorkoutPage = async () => {
     const workoutData = await getWorkOut();
 
     return (
-        <div className="w-full bg-[#0b0c0e] px-4 py-10 sm:px-6 lg:px-8">
+        <div className="w-full bg-[#0b0c0e] px-4 py-10 sm:px-6 lg:px-8 min-h-screen">
             <div className="mx-auto max-w-[1232px]">
                 <div className="mb-7 flex items-end justify-between">
                     <div>
@@ -42,4 +42,4 @@ const Workouts = async () => {
     );
 };
 
-export default Workouts;
+export default WorkoutPage;

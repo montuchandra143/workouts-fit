@@ -9,7 +9,6 @@ const Banner = () => {
 
                 <div className="lg:absolute lg:left-[56px] lg:top-1/2 lg:z-10 lg:-translate-y-1/2 w-full lg:w-[570px] flex flex-col items-start">
 
-                    {/* Small Heading */}
                     <p className="mb-4 sm:mb-[27px] text-[12px] font-bold uppercase tracking-[1px] text-[#c6ff00]">
                         WORKOUT LIBRARY
                     </p>
