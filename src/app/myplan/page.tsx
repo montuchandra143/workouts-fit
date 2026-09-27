@@ -11,6 +11,24 @@ import { GiCheckMark } from "react-icons/gi";
 const MyPlan = () => {
   const { todayPlan = [], setTodyPlan, savePlan = [], setSavePlan } = useContext(WorkOutContext);
   const [activeTab, setActiveTab] = useState<"today" | "saved">("today");
+  const [sortBy, setSortBy] = useState<string>("Duration");
+
+
+  const sortItems = (items: IWorkout[]) => {
+    return [...items].sort((a, b) => {
+      if (sortBy === "Duration") {
+        return (b.duration || 0) - (a.duration || 0);
+      } else if (sortBy === "Calories") {
+        return (b.caloriesBurned || 0) - (a.caloriesBurned || 0);
+      } else if (sortBy === "Rating") {
+        return (b.rating || 0) - (a.rating || 0);
+      }
+      return 0;
+    });
+  };
+
+  const displayedTodayPlan = sortItems(todayPlan);
+  const displayedSavedPlan = sortItems(savePlan);
 
   const totalExercises = todayPlan.length;
   const totalMinutes = todayPlan.reduce(
@@ -92,17 +110,21 @@ const MyPlan = () => {
 
           <div className="flex items-center gap-2 text-sm text-[#8b919e]">
             <span>Sort By</span>
-            <select className="bg-[#121418] border border-[#1e222d] text-white px-3 py-2 rounded-xl outline-none cursor-pointer">
-              <option>Duration</option>
-              <option>Calories</option>
-              <option>Ratting</option>
+            <select 
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="bg-[#121418] border border-[#1e222d] text-white px-3 py-2 rounded-xl outline-none cursor-pointer"
+            >
+              <option value="Duration">Duration</option>
+              <option value="Calories">Calories</option>
+              <option value="Rating">Rating</option>
             </select>
           </div>
         </div>
 
         <div className="space-y-4">
           {activeTab === "today" ? (
-            todayPlan.length === 0 ? (
+            displayedTodayPlan.length === 0 ? (
               <div className="py-24 px-4 text-center border border-[#1e222d] rounded-2xl bg-[#121418] flex flex-col items-center justify-center space-y-4">
                 <h3 className="text-xl sm:text-2xl font-black tracking-widest text-white uppercase">
                   NOTHING HERE YET
@@ -118,7 +140,7 @@ const MyPlan = () => {
                 </Link>
               </div>
             ) : (
-              todayPlan.map((item: IWorkout, index: number) => (
+              displayedTodayPlan.map((item: IWorkout, index: number) => (
                 <div
                   key={`${item.id}-${index}`}
                   className="bg-[#121418] border border-[#1e222d] rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:border-[#2a2f3d] transition-all"
@@ -169,7 +191,7 @@ const MyPlan = () => {
               ))
             )
           ) : (
-            savePlan.length === 0 ? (
+            displayedSavedPlan.length === 0 ? (
               <div className="py-24 px-4 text-center border border-[#1e222d] rounded-2xl bg-[#121418] flex flex-col items-center justify-center space-y-4">
                 <h3 className="text-xl sm:text-2xl font-black tracking-widest text-white uppercase">
                   NOTHING HERE YET
@@ -185,7 +207,7 @@ const MyPlan = () => {
                 </Link>
               </div>
             ) : (
-              savePlan.map((item: IWorkout, index: number) => (
+              displayedSavedPlan.map((item: IWorkout, index: number) => (
                 <div
                   key={`${item.id}-${index}`}
                   className="bg-[#121418] border border-[#1e222d] rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:border-[#2a2f3d] transition-all"
