@@ -165,9 +165,9 @@ const MyPlan = () => {
                         {item.equipment || item.muscleGroups?.join(", ")}
                       </p>
                       <div className="flex items-center gap-4 text-xs text-[#8b919e] pt-1">
-                        <span className="flex items-center gap-1">⏱️ {item.duration} min</span>
-                        <span className="flex items-center gap-1">🔥 {item.caloriesBurned} kcal</span>
-                        <span className="flex items-center gap-1">⭐ {item.rating}</span>
+                        <span className="flex items-center gap-1">{item.duration} min</span>
+                        <span className="flex items-center gap-1"> {item.caloriesBurned} kcal</span>
+                        <span className="flex items-center gap-1"> {item.rating}</span>
                       </div>
                     </div>
                   </div>

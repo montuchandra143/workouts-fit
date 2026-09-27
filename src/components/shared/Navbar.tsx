@@ -1,7 +1,12 @@
-import React from 'react';
+'use client';
+
+import React, { useContext } from 'react';
 import Link from 'next/link';
+import { WorkOutContext } from '@/context/WorkProvider';
 
 const Navbar = () => {
+    const { todayPlan = [], savePlan = [] } = useContext(WorkOutContext);
+
     return (
         <nav className="bg-[#0b0b0b] text-white border-b border-neutral-800 sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -37,13 +42,13 @@ const Navbar = () => {
                         <div className="flex items-center space-x-1.5 md:space-x-2 text-xs md:text-sm">
                             <span className="text-neutral-300">Plan</span>
                             <span className="bg-[#ccff00] text-black font-bold h-5 w-5 md:h-6 md:w-6 rounded-full flex items-center justify-center text-xs">
-                                0
+                                {todayPlan.length}
                             </span>
                         </div>
                         <div className="flex items-center space-x-1.5 md:space-x-2 text-xs md:text-sm">
                             <span className="text-neutral-300">Saved</span>
                             <span className="bg-[#171717] text-neutral-400 border border-neutral-700 font-bold h-5 w-5 md:h-6 md:w-6 rounded-full flex items-center justify-center text-xs">
-                                0
+                                {savePlan.length}
                             </span>
                         </div>
                     </div>
