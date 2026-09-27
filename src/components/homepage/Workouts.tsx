@@ -3,7 +3,7 @@ import WorkOutCart from "../shared/WorkOutCart";
 
 
 const getWorkOut = async (): Promise<IWorkout[]> => {
-    const res = await fetch("https://api.abcz.workers.dev/api/fitlog");
+    const res = await fetch("https://api.api-store.workers.dev/api/fitlog");
     const data = await res.json();
     return data;
 };

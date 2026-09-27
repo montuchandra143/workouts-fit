@@ -1,3 +1,5 @@
+import PlanSave from "@/components/workplan/PlanSave";
+import TodyPlan from "@/components/workplan/TodyPlan";
 import { IWorkout } from "@/type/workout.type";
 import Image from "next/image";
 import React from "react";
@@ -9,7 +11,7 @@ interface WorkOutDetalsProps {
 }
 
 const getWorkOutDetails = async (id: string): Promise<IWorkout> => {
-  const res = await fetch(`https://api.abcz.workers.dev/api/fitlog/${id}`);
+  const res = await fetch(`https://api.api-store.workers.dev/api/fitlog/${id}`);
   const data = await res.json();
   return data;
 };
@@ -22,7 +24,7 @@ const WorkOutDetals = async ({ params }: WorkOutDetalsProps) => {
     <div className="min-h-screen bg-[#0b0c0e] text-white flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
       <div className="max-w-[1100px] w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
-        {/* Left Side: Image Box (Centered & Responsive) */}
+  
         <div className="lg:col-span-5 flex justify-center">
           <div className="relative h-[380px] sm:h-[480px] lg:h-[520px] w-full max-w-[420px] rounded-[24px] overflow-hidden bg-[#15171c] border border-[#292d35] shadow-2xl">
             <Image
@@ -35,7 +37,7 @@ const WorkOutDetals = async ({ params }: WorkOutDetalsProps) => {
           </div>
         </div>
 
-        {/* Right Side: Content Details (Centered alignment style) */}
+       
         <div className="lg:col-span-7 flex flex-col justify-center">
 
           <h1
@@ -44,13 +46,10 @@ const WorkOutDetals = async ({ params }: WorkOutDetalsProps) => {
           >
             {workout.name}
           </h1>
-
-          {/* Description */}
           <p className="text-[#9298a3] text-[13px] sm:text-[14px] mb-5 leading-relaxed">
             {workout.description}
           </p>
 
-          {/* Muscle Groups Badges */}
           <div className="flex flex-wrap gap-2 mb-6">
             {workout.muscleGroups?.map((muscle) => (
               <span
@@ -100,36 +99,25 @@ const WorkOutDetals = async ({ params }: WorkOutDetalsProps) => {
             </div>
           </div>
 
-          {/* Instructions Section */}
           {workout.instructions && workout.instructions.length > 0 && (
             <div className="mb-8">
               <h3 className="text-[12px] font-bold uppercase tracking-[1.5px] text-white mb-3">
                 Instructions
               </h3>
               <ol className="space-y-2 text-[13px] sm:text-[14px] text-[#9298a3]">
-                {workout.instructions.map((workouts, index) => (
+                {workout.instructions.map((stepText, index) => (
                   <li key={index} className="leading-relaxed">
-                    {index + 1}. {workouts}
+                    {index + 1}. {stepText}
                   </li>
                 ))}
               </ol>
             </div>
           )}
 
-       {/* Action Buttons */}
+      
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-            <button className="w-full py-3.5 px-6 rounded-[16px] bg-[#c6ff00] text-black font-bold text-[13px] hover:bg-[#b0e000] transition-colors flex items-center justify-center gap-2 whitespace-nowrap">
-              <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span>Add to today's plan</span>
-            </button>
-            <button className="w-full py-3.5 px-6 rounded-[16px] bg-[#15171c] text-white font-medium text-[13px] border border-[#292d35] hover:bg-[#1f232b] transition-colors flex items-center justify-center gap-2 whitespace-nowrap">
-              <svg className="w-5 h-5 text-[#9298a3] shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-              </svg>
-              <span>Save for later</span>
-            </button>
+             <TodyPlan workout={workout} />
+             <PlanSave  workout={workout}/>
           </div>
         </div>
 
