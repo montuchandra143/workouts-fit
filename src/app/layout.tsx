@@ -31,6 +31,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <WorkProvider>
         <Navbar></Navbar>
         {children}
+
         <Footer></Footer>
          <ToastContainer />
         </WorkProvider>

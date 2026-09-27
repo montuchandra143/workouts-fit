@@ -61,7 +61,6 @@ const WorkOutDetals = async ({ params }: WorkOutDetalsProps) => {
             ))}
           </div>
 
-          {/* Info Card Box */}
           <div className="bg-[#15171c] border border-[#292d35] rounded-[20px] p-4 sm:p-5 mb-6 space-y-3.5">
             <div className="flex justify-between items-center text-[13px] border-b border-[#292d35] pb-3">
               <span className="text-[#9298a3] uppercase tracking-[1px] text-[11px] font-bold">Equipment</span>

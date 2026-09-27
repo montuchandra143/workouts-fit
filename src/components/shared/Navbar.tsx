@@ -12,17 +12,16 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
 
+          
                     <div className="flex items-center space-x-3">
                         <Link href="/" className="flex items-center space-x-2">
-                            <div className="text-[#ccff00]">
-
-                            </div>
                             <span className="font-extrabold tracking-wider text-xl text-white">
                                 FITLOG
                             </span>
                         </Link>
                     </div>
 
+           
                     <div className="hidden md:flex items-center space-x-2 bg-[#121212] px-2 py-1.5 rounded-full border border-neutral-800">
                         <Link
                             href="/"
@@ -38,6 +37,7 @@ const Navbar = () => {
                         </Link>
                     </div>
 
+                    {/* Counters */}
                     <div className="flex items-center space-x-4 md:space-x-6">
                         <div className="flex items-center space-x-1.5 md:space-x-2 text-xs md:text-sm">
                             <span className="text-neutral-300">Plan</span>

@@ -1,12 +1,18 @@
 'use client';
 
-import { WorkOutContext } from '@/context/WorkProvider';
+import { WorkOutContext, WorkOutContextType } from '@/context/WorkProvider';
 import { IWorkout } from '@/type/workout.type';
 import React, { useContext } from 'react';
 import { toast } from 'react-toastify';
 
 const TodyPlan = ({ workout }: { workout: IWorkout }) => {
- const { todayPlan, setTodyPlan } = useContext(WorkOutContext);
+ const context = useContext(WorkOutContext) as WorkOutContextType;
+
+ if (!context) {
+     throw new Error("WorkOutContext must be used within a WorkOutProvider");
+ }
+
+ const { todayPlan = [], setTodyPlan } = context;
 
  const handleToday = () => {
     const isAlreadyExists = todayPlan.some((item: IWorkout) => item.id === workout.id);
@@ -17,13 +23,9 @@ const TodyPlan = ({ workout }: { workout: IWorkout }) => {
             autoClose: 3000,
             style: {
                 background: '#ef4444', 
-                color: '#ffffff',     
+                color: '#ffffff',    
                 fontWeight: '600',
-            },
-            iconTheme: {
-                primary: '#ffffff',
-                secondary: '#ef4444',
-            },
+            }
         });
         return;
     }

@@ -1,12 +1,18 @@
 'use client';
 
-import { WorkOutContext } from '@/context/WorkProvider';
+import { WorkOutContext, WorkOutContextType } from '@/context/WorkProvider';
 import { IWorkout } from '@/type/workout.type';
 import React, { useContext } from 'react';
 import { toast } from 'react-toastify';
 
 const PlanSave = ({ workout }: { workout: IWorkout }) => {
-   const { savePlan, setSavePlan } = useContext(WorkOutContext);
+   const context = useContext(WorkOutContext) as WorkOutContextType;
+
+   if (!context) {
+       throw new Error("WorkOutContext must be used within a WorkOutProvider");
+   }
+
+   const { savePlan = [], setSavePlan } = context;
 
    const handlePlanSave = () => {
         const isAlreadySaved = savePlan.some((item: IWorkout) => item.id === workout.id);
@@ -19,11 +25,7 @@ const PlanSave = ({ workout }: { workout: IWorkout }) => {
                     background: '#ef4444', 
                     color: '#ffffff',      
                     fontWeight: '600',
-                },
-                iconTheme: {
-                    primary: '#ffffff',
-                    secondary: '#ef4444',
-                },
+                }
             });
             return;
         }
@@ -37,7 +39,7 @@ const PlanSave = ({ workout }: { workout: IWorkout }) => {
         });
    };
    
-    return (
+   return (
         <div>
             <button 
                 className="w-full py-3.5 px-6 rounded-[16px] bg-[#15171c] text-white font-medium text-[13px] border border-[#292d35] hover:bg-[#1f232b] transition-colors flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer"
@@ -49,7 +51,7 @@ const PlanSave = ({ workout }: { workout: IWorkout }) => {
                 <span>Save for later</span>
             </button>
         </div>
-    );
+   );
 };
 
 export default PlanSave;
